@@ -57,9 +57,9 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/Asaaq-ali/DinaMusic",
+    "https://github.com/Teemsoha/RemaxMusic",
 )
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 
 # GIT TOKEN ( if your edited repo is private)
 GIT_TOKEN = getenv("GIT_TOKEN", None)
@@ -104,16 +104,16 @@ TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 GITHUB_REPO = getenv("GITHUB_REPO", None)
 
 CHANNEL_SUDO = getenv(
-    "CHANNEL_SUDO", "M_D_N_N"
+    "CHANNEL_SUDO", "My1mind1"
 )  # معرف قناتك
 YAFA_NAME = getenv(
-    "YAFA_NAME", "༺مشاعر مبعشره༻ "
+    "YAFA_NAME", "ليطمـ𓆰ٰ⍣⃟ٰٰٖٖ۪۬🇾🇪۬ـئن عقلـ۬ۦٕ٘۬ﹻٰ۬ۛۛـي"
 )  # اسم قناتك
 YAFA_CHANNEL = getenv(
-   " YAFA_CHANNEL", "https://t.me/M_D_N_N"
+   " YAFA_CHANNEL", "https://t.me/My1mind1"
 )  # رابط قناتك
 ASAAQ_CHANNEL = getenv(
-   " ASAAQ_CHANNEL", "t.me/M_D_N_N"
+   " ASAAQ_CHANNEL", "t.me/My1mind1"
 ) 
 # Spotify Client.. Get it from https://developer.spotify.com/dashboard
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
