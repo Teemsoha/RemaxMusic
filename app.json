@@ -6,8 +6,8 @@
     "python3",
     "telegram",
     "bot",
-    "Yukki",
-    "YukkiMusicBot",
+    "Remax",
+    "RemaxMusic",
     "telegram-bot",
     "pyrogram"
     ],
@@ -65,12 +65,12 @@
       },
       "UPSTREAM_REPO": {
         "description": "If you dont know this, Leave as it is",
-        "value": "https://github.com/Asaaq-ali/RemaxBot",
+        "value": "https://github.com/Teemsoha/RemaxMusic",
         "required": true
       },
       "UPSTREAM_BRANCH": {
         "description": "Upstream Repo's Branch Name",
-        "value": "master",
+        "value": "main",
         "required": true
       }
     },
