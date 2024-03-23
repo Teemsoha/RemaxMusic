@@ -459,8 +459,7 @@ async def maintenance_on():
 # Audio Video Limit
 
 from pytgcalls.types import (
-    AudioQuality, 
-    VideoParameters, 
+    AudioQuality,  
     VideoQuality
 )
 
