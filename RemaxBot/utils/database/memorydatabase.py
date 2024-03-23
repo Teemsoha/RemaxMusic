@@ -1,9 +1,9 @@
 #
-# Copyright (C) 2021-present by TeamRemax@Github, < https://github.com/TeamRemax >.
+# Copyright (C) 2021-present by TeamYukki@Github, < https://github.com/TeamYukki >.
 #
-# This file is part of < https://github.com/TeamRemax/RemaxBotBot > project,
+# This file is part of < https://github.com/TeamYukki/RemaxBotBot > project,
 # and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TeamRemax/RemaxBotBot/blob/master/LICENSE >
+# Please see < https://github.com/TeamYukki/RemaxBotBot/blob/master/LICENSE >
 #
 # All rights reserved.
 #
@@ -15,11 +15,12 @@ from RemaxBot.core.mongo import mongodb
 
 channeldb = mongodb.cplaymode
 commanddb = mongodb.commands
+cleandb = mongodb.cleanmode
 playmodedb = mongodb.playmode
 playtypedb = mongodb.playtypedb
 langdb = mongodb.language
 authdb = mongodb.adminauth
-videodb = mongodb.Remaxvideocalls
+videodb = mongodb.yukkivideocalls
 onoffdb = mongodb.onoffper
 suggdb = mongodb.suggestion
 autoenddb = mongodb.autoend
@@ -38,6 +39,7 @@ video = {}
 active = []
 activevideo = []
 command = []
+cleanmode = []
 nonadmin = {}
 vlimit = []
 maintenance = []
@@ -294,23 +296,23 @@ async def commanddelete_on(chat_id: int):
 
 
 # Clean Mode
-#async def is_cleanmode_on(chat_id: int) -> bool:
- #   if chat_id not in cleanmode:
-#        return True
- #   else:
- #       return False
+async def is_cleanmode_on(chat_id: int) -> bool:
+    if chat_id not in cleanmode:
+        return True
+    else:
+        return False
 
 
-#async def cleanmode_on(chat_id: int):
- #   if chat_id not in cleanmode:
-   #     cleanmode.append(chat_id)
+async def cleanmode_off(chat_id: int):
+    if chat_id not in cleanmode:
+        cleanmode.append(chat_id)
 
 
-#async def cleanmode_off(chat_id: int):
- #   try:
-    #    cleanmode.remove(chat_id)
-   # except:
-   #     pass
+async def cleanmode_on(chat_id: int):
+    try:
+        cleanmode.remove(chat_id)
+    except:
+        pass
 
 
 # Non Admin Chat
@@ -459,8 +461,8 @@ async def maintenance_on():
 # Audio Video Limit
 
 from pytgcalls.types import (
-    AudioQuality, 
-    VideoQuality
+    AudioQuality,
+    VideoQuality,
 )
 
 
@@ -492,33 +494,33 @@ async def get_vid_bit_name(chat_id: int) -> str:
 async def get_audio_bitrate(chat_id: int) -> str:
     mode = audio.get(chat_id)
     if not mode:
-        return AudioParameters.from_quality(AudioQuality.STUDIO)
+        return AudioQuality.STUDIO
     if str(mode) == "STUDIO":
-        return AudioParameters.from_quality(AudioQuality.STUDIO)
+        return AudioQuality.STUDIO
     elif str(mode) == "HIGH":
-        return AudioParameters.from_quality(AudioQuality.HIGH)
+        return AudioQuality.HIGH
     elif str(mode) == "MEDIUM":
-        return AudioParameters.from_quality(AudioQuality.MEDIUM)
+        return AudioQuality.MEDIUM
     elif str(mode) == "LOW":
-        return AudioParameters.from_quality(AudioQuality.LOW)
+        return AudioQuality.LOW
 
 
 async def get_video_bitrate(chat_id: int) -> str:
     mode = video.get(chat_id)
     if not mode:
         if PRIVATE_BOT_MODE == str(True):
-            return VideoParameters.from_quality(VideoQuality.FHD_1080p)
+            return VideoQuality.FHD_1080p
         else:
-            return VideoParameters.from_quality(VideoQuality.HD_720p)
+            return VideoQuality.HD_720p
     if str(mode) == "UHD_4K":
-        return VideoParameters.from_quality(VideoQuality.UHD_4K)
+        return VideoQuality.UHD_4K
     elif str(mode) == "QHD_2K":
-        return VideoParameters.from_quality(VideoQuality.QHD_2K)
+        return VideoQuality.QHD_2K
     elif str(mode) == "FHD_1080p":
-        return VideoParameters.from_quality(VideoQuality.FHD_1080p)
+        return VideoQuality.FHD_1080p
     elif str(mode) == "HD_720p":
-        return VideoParameters.from_quality(VideoQuality.HD_720p)
+        return VideoQuality.HD_720p
     elif str(mode) == "SD_480p":
-        return VideoParameters.from_quality(VideoQuality.SD_480p)
+        return VideoQuality.SD_480p
     elif str(mode) == "SD_360p":
-        return VideoParameters.from_quality(VideoQuality.SD_360p)
+        return VideoQuality.SD_360p
