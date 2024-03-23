@@ -18,12 +18,13 @@ from pyrogram.errors import (ChatAdminRequired,
                              UserAlreadyParticipant,
                              UserNotParticipant)
 from pyrogram.types import InlineKeyboardMarkup
+from ntgcalls import TelegramServerError
 from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (AlreadyJoinedError,
                                   NoActiveGroupCall)
-from pytgcalls.types import (JoinedGroupCallParticipant,
+from pytgcalls.types import (JoinedGroupCallParticipant, 
+                             MediaStream,
                              LeftGroupCallParticipant, Update)
-from pytgcalls.types import MediaStream
 from pytgcalls.types.stream import StreamAudioEnded
 import config
 from remaxes import get_string
@@ -161,7 +162,9 @@ class Call(PyTgCalls):
             )
             if video
             else MediaStream(
-                link, audio_parameters=audio_stream_quality
+                link, 
+                audio_parameters=audio_stream_quality,
+                video_flags=MediaStream.IGNORE,
             )
         )
         await assistant.change_stream(
@@ -180,13 +183,14 @@ class Call(PyTgCalls):
                 file_path,
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
-                additional_ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
+                ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
             )
             if mode == "video"
             else MediaStream(
                 file_path,
                 audio_parameters=audio_stream_quality,
-                additional_ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
+                ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
+                video_flags=MediaStream.IGNORE,
             )
         )
         await assistant.change_stream(chat_id, stream)
@@ -209,7 +213,7 @@ class Call(PyTgCalls):
                 get = await app.get_chat_member(chat_id, userbot.id)
             except ChatAdminRequired:
                 raise AssistantErr(_["call_1"])
-            if get.status == ChatMemberStatus.BANNED or get.status == ChatMemberStatus.LEFT:
+            if get.status == ChatMemberStatus.BANNED or get.status == ChatMemberStatus.RESTRICTED:
                 raise AssistantErr(
                     _["call_2"].format(userbot.username, userbot.id)
                 )
@@ -277,7 +281,9 @@ class Call(PyTgCalls):
             )
             if video
             else MediaStream(
-                link, audio_parameters=audio_stream_quality
+                link, 
+                audio_parameters=audio_stream_quality,
+                video_flags=MediaStream.IGNORE,
             )
         )
         try:
@@ -369,7 +375,9 @@ class Call(PyTgCalls):
                     )
                     if str(streamtype) == "video"
                     else MediaStream(
-                        link, audio_parameters=audio_stream_quality
+                        link, 
+                        audio_parameters=audio_stream_quality,
+                        video_flags=MediaStream.IGNORE,
                     )
                 )
                 try:
@@ -419,6 +427,7 @@ class Call(PyTgCalls):
                     else MediaStream(
                         file_path,
                         audio_parameters=audio_stream_quality,
+                        video_flags=MediaStream.IGNORE,
                     )
                 )
                 try:
@@ -451,7 +460,9 @@ class Call(PyTgCalls):
                     )
                     if str(streamtype) == "video"
                     else MediaStream(
-                        videoid, audio_parameters=audio_stream_quality
+                        videoid, 
+                        audio_parameters=audio_stream_quality,
+                        video_flags=MediaStream.IGNORE,
                     )
                 )
                 try:
@@ -479,7 +490,9 @@ class Call(PyTgCalls):
                     )
                     if str(streamtype) == "video"
                     else MediaStream(
-                        queued, audio_parameters=audio_stream_quality
+                        queued, 
+                        audio_parameters=audio_stream_quality,
+                        video_flags=MediaStream.IGNORE,
                     )
                 )
                 try:
