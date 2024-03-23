@@ -23,7 +23,7 @@ from pytgcalls.exceptions import (AlreadyJoinedError,
                                   NoActiveGroupCall)
 from pytgcalls.types import (JoinedGroupCallParticipant,
                              LeftGroupCallParticipant, Update)
-from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
+from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.stream import StreamAudioEnded
 import config
 from remaxes import get_string
