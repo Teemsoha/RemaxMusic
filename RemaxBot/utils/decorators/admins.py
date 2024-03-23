@@ -30,7 +30,7 @@ def AdminRightsCheck(mystic):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "البوت تحت الصيانة. يرجى الانتظار لبعض الوقت..."
+                    "Bot is under maintenance. Please wait for some time..."
                 )
         if await is_commanddelete_on(message.chat.id):
             try:
@@ -86,7 +86,7 @@ def AdminActual(mystic):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "البوت تحت الصيانة. يرجى الانتظار لبعض الوقت..."
+                    "Bot is under maintenance. Please wait for some time..."
                 )
         if await is_commanddelete_on(message.chat.id):
             try:
@@ -119,8 +119,9 @@ def AdminActual(mystic):
                         message.chat.id, message.from_user.id
                     )
                 )
-                if not member.status == ChatMemberStatus.ADMINISTRATOR:
-                    return await message.reply(_["general_5"])
+                if member.status != ChatMemberStatus.ADMINISTRATOR:
+                    if not member.privileges.can_manage_video_chats:
+                        return await message.reply(_["general_5"])
             except Exception as e:
                 return await message.reply(f"Error: {str(e)}")
         return await mystic(client, message, _)
@@ -132,7 +133,7 @@ def ActualAdminCB(mystic):
         if await is_maintenance() is False:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(
-                    "البوت تحت الصيانة. يرجى الانتظار لبعض الوقت...",
+                    "Bot is under maintenance. Please wait for some time...",
                     show_alert=True,
                 )
         try:
@@ -153,23 +154,24 @@ def ActualAdminCB(mystic):
                         CallbackQuery.from_user.id,
                     )
                 )
-                if not a.status == ADMINISTRATOR:
-                    if CallbackQuery.from_user.id not in SUDOERS:
-                        token = await int_to_alpha(
-                            CallbackQuery.from_user.id
-                        )
-                        _check = await get_authuser_names(
-                            CallbackQuery.from_user.id
-                        )
-                        if token not in _check:
-                            return await CallbackQuery.answer(
-                                _["general_5"],
-                                show_alert=True,
+                if a.status != ChatMemberStatus.ADMINISTRATOR:
+                    if not a.privileges.can_manage_video_chats:
+                        if CallbackQuery.from_user.id not in SUDOERS:
+                            token = await int_to_alpha(
+                                CallbackQuery.from_user.id
                             )
-                elif a is None:
-                    return await CallbackQuery.answer("أنت لست عضوا في هذه الدردشة.")
+                            _check = await get_authuser_names(
+                                CallbackQuery.from_user.id
+                            )
+                            if token not in _check:
+                                return await CallbackQuery.answer(
+                                    _["general_5"],
+                                    show_alert=True,
+                                )
+                    elif a is None:
+                        return await CallbackQuery.answer("You are not a member of this chat.")
             except Exception as e:
-                return await CallbackQuery.answer(f"خطاء : {str(e)}")
+                return await CallbackQuery.answer(f"Error: {str(e)}")
         return await mystic(client, CallbackQuery, _)
 
     return wrapper
