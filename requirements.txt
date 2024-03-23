@@ -7,8 +7,8 @@ gitpython
 hachoir
 heroku3
 lyricsgenius
-motor
 ntgcalls
+motor
 pillow
 psutil
 pykeyboard
@@ -25,3 +25,4 @@ youtube-search-python
 yt-dlp
 wget
 numpy
+telegraph
