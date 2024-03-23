@@ -20,7 +20,7 @@ from RemaxBot.utils.formatters import seconds_to_min
 from RemaxBot.utils.inline import (stream_markup_timer,
                                      telegram_markup_timer)
 
-from ..admins.callback import wrong
+from ..Remax.callback import wrong
 
 checker = {}
 
