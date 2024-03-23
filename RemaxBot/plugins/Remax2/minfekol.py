@@ -5,7 +5,7 @@ from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from RemaxBot.core.call import Remax 
 from RemaxBot.utils.database import *
-from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError)
+from pytgcalls.exceptions import NoActiveGroupCall
 
 @app.on_message(filters.regex("مين في الكول"))
 async def strcall(client, message):
