@@ -44,7 +44,7 @@ async def reload_admin_cache(client, message: Message, _):
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
         async for user in admins:
-            if user.status == ChatMemberStatus.ADMINISTRATOR:
+            if not user.privileges.can_manage_video_chats:
                 adminlist[chat_id].append(user.user.id)
         for user in authusers:
             user_id = await alpha_to_int(user)
@@ -57,10 +57,11 @@ async def reload_admin_cache(client, message: Message, _):
 
 
 @app.on_message(
-    filters.command(["رست"],"")
+    filters.command(["ريستارت"],"")
     & filters.group
     & ~BANNED_USERS
 )
+@AdminActual
 async def restartbot(client, message: Message, _):
     mystic = await message.reply_text(
         f"Please Wait.. Restarting {MUSIC_BOT_NAME} for your chat.."
