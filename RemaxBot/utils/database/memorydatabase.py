@@ -460,7 +460,6 @@ async def maintenance_on():
 
 from pytgcalls.types import (
     AudioQuality, 
-    VideoParameters, 
     VideoQuality
 )
 
