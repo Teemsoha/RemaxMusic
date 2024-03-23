@@ -26,7 +26,7 @@ from pytgcalls.types import (JoinedGroupCallParticipant,
 from pytgcalls.types import MediaStream
 from pytgcalls.types.stream import StreamAudioEnded
 import config
-from strings import get_string
+from remaxes import get_string
 from RemaxBot import LOGGER, YouTube, app
 from RemaxBot.misc import db
 from RemaxBot.utils.database import (add_active_chat,
